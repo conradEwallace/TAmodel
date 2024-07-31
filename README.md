@@ -1,25 +1,37 @@
 # Tekashi-Alexander Cash Flow Forecasting Model
-This is a script which provides a cash flow forecasting for private assets. It is based on the Yale model by Dean Tekashi and Seth Alexander, who built a deterministic model for estimating future cash flows and valuations for the Yale endowment's private equity portfolio. 
+The Tekashi-Alexander Cash Flow Forecasting Model predicts the cash flow for private assets, helping investors to make informed decisions.
 
 ## Getting Started
 
-## Step 1. Download CW-TAmodel and any dependencies
-1. Download Python for you computer
-2. Download CW-TAmodel by using git clone or clicking on the green Code button and clicking Download Zip
-3. Extract and open the folder in any terminal app
-4. Run pip install pandas
+### Prerequisites
+•	Python 3.x installed on your computer
 
-## Step 2. Create your input file
-1. Open the file "Portfolio_Data_Template.csv" in excel. It is already loaded with an example portfolio and parameters.
-2. Replace the content with your assets, portfolio, commitment date, etc. Please see below "Parameters" section for a full detailed breakdown of each required parameter.
-3. Save this file as "Portfolio_Data.csv", overwriting the example one.
+•	Required libraries: pandas
 
-## Step 3. CW-TAmodel script
-1. Open the folder in any terminal
-2. Run python main.py. - (try python3 main.py if it doesnt work)
-3. It will take your input file and output a "forecasted_data.csv"
 
-## Parameters
+### Installation
+1. Download the Project
+   
+  	•	Clone the repository: git clone https://github.com/conradEwallace/TAmodel
+   
+  	•	Or download the ZIP and extract it.
+
+3. Install Dependencies
+   
+  	•	Navigate to the project directory and run: pip install pandas
+
+
+### Creating Input File
+1. Open Portfolio_Data_Template.csv in Excel.
+2. Replace the example data with your portfolio details.
+3. Save the file as Portfolio_Data.csv in the project directory.
+
+### Running the Script
+1. Open the terminal in the project directory.
+2. Run the script: python main.py (or python3 main.py if necessary)
+3. The script will generate forecasted_data.csv with the forecasted cash flows.
+
+### Parameters
 Please see the below parameters required to be defined in the Portfolio_Data input file. You can also find a "default" or suggested parameters here:
 
 CCY1: 25%, CCY2: 33%, CCY3+, 50%, Bow Factor: 5, Growth Rate: 10%, Yield: 5%, Life:10 
@@ -34,15 +46,34 @@ CCY1: 25%, CCY2: 33%, CCY3+, 50%, Bow Factor: 5, Growth Rate: 10%, Yield: 5%, Li
 7. Investment Life - The projected lifetime of the investment in years. A valid input is between 1 and 100.
 
 
-## Methodology
-The TA model starts by defining the capital call (ct) in a given period (cf_year), as the uncalled commitment at the end of the previous period (1-cum_ct), multiplied by the rate of contribution in that period. 
+
+### Methodology
+The model starts by defining the current cashflow year for the investment as the current date minus the vintage. This allows the model to understand the current year in relation to the vintage and the investment life.
+
+Capital call (ct) in a given period (cf_year), is the uncalled commitment multiplied by the rate of contribution in that period. 
+
+Distributions (dt) are a product of the previous year NAV multiplied with a growth rate and a rate of distribution function RD. 
+
+dt = NAVt * (1 + growth_rate) * RD
+
+Where:
+RD = max(bow_component, yield_rate)
+bow_component = function of the current year, investment life and bow_factor. 
+
+The cumulative cash flow for each year is calculated and multiplied by the commitment value to get the expected cash flow for that year.
 
 
+### Output
 
-## Output
+The output file forecasted_data.csv contains the asseet-level cumulative cash flow from Year 1 (next year) to the maximum investment life.
 
 
-## Sources
+### Sources
+Takashi Alexander Model (aka Yale model) by Dean Tekashi and Seth Alexander of the Yale University Investments Office.
+https://www.hbs.edu/faculty/Pages/item.aspx?num=64173
 
+The Takashi and Alexander Model by Christoph Jackel
+https://www.christoph-jaeckel.com/posts/2023-02-05-the-takahashi-and-alexander-model/
 
 ## Contributing
+Your contributions are welcome! Please fork the repository and create a pull request to contribute.
